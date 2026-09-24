@@ -1,0 +1,129 @@
+rule,llm,question,seniority,participant,file,line,message,effort,severity,type
+S1210,GEMINI,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,11,"When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S1128,GEMINI,SEQUENCE_COMPARISON,SENIOR,4,Program.cs,1,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1128,GEMINI,SEQUENCE_COMPARISON,SENIOR,4,Program.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,JUNIOR,7,ClaudeArrayDifferenceJuniorParticipant7.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,PLENO,6,ClaudeArrayDifferencePlenoParticipant6.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,SENIOR,1,ClaudeArrayDifferenceSeniorParticipant1.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,SENIOR,3,ClaudeArrayDifferenceSeniorParticipant3.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,SENIOR,4,ClaudeArrayDifferenceSeniorParticipant4.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,SENIOR,5,ClaudeArrayDifferenceSeniorParticipant5.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,3,DeepseekArrayDifferenceSeniorParticipant3.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,4,DeepseekArrayDifferenceSeniorParticipant4.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,5,DeepseekArrayDifferenceSeniorParticipant5.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,ARRAY_DIFFERENCE,PLENO,6,GptArrayDifferencePlenoParticipant6.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,ARRAY_DIFFERENCE,SENIOR,1,GptArrayDifferenceSeniorParticipant1.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,ARRAY_DIFFERENCE,SENIOR,3,GptArrayDifferenceSeniorParticipant3.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,ARRAY_DIFFERENCE,SENIOR,5,GptArrayDifferenceSeniorParticipant5.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,ARRAY_DIFFERENCE,SENIOR,2,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1128,GPT,ARRAY_DIFFERENCE,SENIOR,4,ArrayUtils.cs,1,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1210,GPT,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,8,"When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S3242,GPT,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,197,Consider using more general type 'System.Collections.Generic.IReadOnlyCollection<double>' instead of 'System.Collections.Generic.IReadOnlyList<double>'.,5min,MINOR,CODE_SMELL
+S1210,GPT,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,7,"When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S1118,GPT,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,71,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3776,GPT,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,73,Refactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S1541,GPT,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,73,The Cyclomatic Complexity of this method is 17 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S138,GPT,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,73,"This method 'Main' has 83 lines, which is greater than the 80 lines authorized. Split it into smaller methods.",20min,MAJOR,CODE_SMELL
+S1118,GPT,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,171,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GPT,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,40,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1541,GPT,SEQUENCE_COMPARISON,SENIOR,3,Program.cs,12,The Cyclomatic Complexity of this method is 17 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S3776,GPT,SEQUENCE_COMPARISON,SENIOR,3,Program.cs,12,Refactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S1118,GPT,SEQUENCE_COMPARISON,SENIOR,4,Fraction.cs,67,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3242,GPT,SEQUENCE_COMPARISON,SENIOR,4,Fraction.cs,177,Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S1210,GPT,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,8,"When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S125,GPT,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,222,Remove this commented out code.,5min,MAJOR,CODE_SMELL
+S1128,GEMINI,ARRAY_DIFFERENCE,JUNIOR,7,ArrayDifference.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,JUNIOR,7,ArrayDifference.cs,7,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,PLENO,6,ArrayUtils.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,SENIOR,1,ArrayUtils.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,SENIOR,2,Program.cs,7,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,SENIOR,3,ArrayOperations.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1128,GEMINI,ARRAY_DIFFERENCE,SENIOR,4,ArrayOperations.cs,1,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,SENIOR,4,ArrayOperations.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1128,GEMINI,ARRAY_DIFFERENCE,SENIOR,5,ArrayUtils.cs,1,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1128,GEMINI,ARRAY_DIFFERENCE,SENIOR,5,ArrayUtils.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,GEMINI,ARRAY_DIFFERENCE,SENIOR,5,ArrayUtils.cs,7,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,JUNIOR,7,CompareSequence.cs,133,Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,JUNIOR,7,CompareSequence.cs,158,Consider using more general type 'System.Collections.Generic.ICollection<GEMINI.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7.Fraction>'.,5min,MINOR,CODE_SMELL
+S1210,GEMINI,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,11,"When implementing IComparable<T> or IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S1118,GEMINI,SEQUENCE_COMPARISON,JUNIOR,7,Program.cs,5,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,SEQUENCE_COMPARISON,PLENO,6,Program.cs,5,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,SEQUENCE_COMPARISON,SENIOR,1,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,GEMINI,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,45,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1541,GEMINI,SEQUENCE_COMPARISON,SENIOR,3,Program.cs,13,The Cyclomatic Complexity of this method is 16 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S3776,GEMINI,SEQUENCE_COMPARISON,SENIOR,3,Program.cs,13,Refactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S125,GEMINI,SEQUENCE_COMPARISON,SENIOR,3,Program.cs,136,Remove this commented out code.,5min,MAJOR,CODE_SMELL
+S1128,GEMINI,SEQUENCE_COMPARISON,SENIOR,4,Program.cs,2,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,SENIOR,5,CompareSequence.cs,105,Consider using more general type 'System.Collections.Generic.IEnumerable<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,SENIOR,5,CompareSequence.cs,105,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,SENIOR,5,CompareSequence.cs,129,Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,GEMINI,SEQUENCE_COMPARISON,SENIOR,5,CompareSequence.cs,150,Consider using more general type 'System.Collections.Generic.IEnumerable<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S1118,GEMINI,SEQUENCE_COMPARISON,SENIOR,5,Program.cs,5,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1128,GEMINI,STRING_ARRAY_ENCODING,JUNIOR,7,MatrixString.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1128,GEMINI,STRING_ARRAY_ENCODING,PLENO,6,MatrixString.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S125,GEMINI,STRING_ARRAY_ENCODING,PLENO,6,MatrixString.cs,88,Remove this commented out code.,5min,MAJOR,CODE_SMELL
+S125,GEMINI,STRING_ARRAY_ENCODING,SENIOR,1,MatrixException.cs,22,Remove this commented out code.,5min,MAJOR,CODE_SMELL
+S1128,GEMINI,STRING_ARRAY_ENCODING,SENIOR,2,MatrixString.cs,2,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1128,GEMINI,STRING_ARRAY_ENCODING,SENIOR,5,MatrixString.cs,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,JUNIOR,7,ArrayOperations.cs,69,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,PLENO,6,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,1,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S100,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,1,Program.cs,25,"Rename method 'DiferencaEntreArraysSemLINQ' to match pascal case naming rules, consider using 'DiferencaEntreArraysSemLinq'.",5min,MINOR,CODE_SMELL
+S1118,DEEPSEEK,ARRAY_DIFFERENCE,SENIOR,2,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1210,DEEPSEEK,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,10,"When implementing IComparable<T>, you should also override ==, !=, <, <=, >, and >=.",15min,MINOR,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,301,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,61,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3776,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,63,Refactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S138,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,63,"This method 'Main' has 94 lines, which is greater than the 80 lines authorized. Split it into smaller methods.",20min,MAJOR,CODE_SMELL
+S1541,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,63,The Cyclomatic Complexity of this method is 16 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,76,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,124,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,162,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1541,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,53,The Cyclomatic Complexity of this method is 12 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S3776,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,53,Refactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,74,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,98,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1541,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,135,The Cyclomatic Complexity of this method is 13 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S3776,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,135,Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,245,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,35,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3776,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,37,Refactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.,6min,CRITICAL,CODE_SMELL
+S138,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,37,"This method 'Main' has 84 lines, which is greater than the 80 lines authorized. Split it into smaller methods.",20min,MAJOR,CODE_SMELL
+S1541,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,37,The Cyclomatic Complexity of this method is 14 which is greater than 10 authorized.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,51,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,84,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,4,CompareSequence.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S134,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,4,CompareSequence.cs,37,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1118,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,4,Program.cs,3,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3242,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,117,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,117,Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S3242,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,134,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,142,Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S3242,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,147,Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S125,DEEPSEEK,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,166,Remove this commented out code.,5min,MAJOR,CODE_SMELL
+S1118,DEEPSEEK,STRING_ARRAY_ENCODING,JUNIOR,7,MatrixException.cs,120,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1481,DEEPSEEK,STRING_ARRAY_ENCODING,JUNIOR,7,MatrixException.cs,165,Remove the unused local variable 'invalidMatrix'.,5min,MINOR,CODE_SMELL
+S1118,CLAUDE,ARRAY_DIFFERENCE,SENIOR,2,Program.cs,6,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,191,Consider using more general type 'System.Collections.Generic.IList<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,JUNIOR,7,Fraction.cs,292,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S134,CLAUDE,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,126,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1481,CLAUDE,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,167,Remove the unused local variable 'medianValue'.,5min,MINOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,PLENO,6,Fraction.cs,201,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,SENIOR,1,Fracao.cs,289,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,40,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S134,CLAUDE,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,126,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,2,Fraction.cs,148,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,4,Fraction.cs,158,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,SENIOR,4,Fraction.cs,174,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,116,Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,116,Consider using more general type 'System.Collections.Generic.ICollection<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,133,Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S3242,CLAUDE,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,145,Consider using more general type 'System.Collections.Generic.IEnumerable<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'.,5min,MINOR,CODE_SMELL
+S1118,CLAUDE,SEQUENCE_COMPARISON,SENIOR,5,Fraction.cs,159,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL
+S1128,HUMANO,CLASSE_PRINCIPAL,ESPECIALISTA,GOLD STANDARD,,4,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S134,HUMANO,STRING_ARRAY_ENCODING,ESPECIALISTA,GOLD STANDARD,,71,Refactor this code to not nest more than 3 control flow statements.,10min,CRITICAL,CODE_SMELL
+S1128,HUMANO,CLASSE_PRINCIPAL,ESPECIALISTA,GOLD STANDARD,,3,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S3242,HUMANO,SEQUENCE_COMPARISON,ESPECIALISTA,GOLD STANDARD,,49,Consider using more general type 'System.Collections.Generic.IEnumerable<Application.Sequence.Types.Fraction>' instead of 'System.Collections.Generic.List<Application.Sequence.Types.Fraction>'.,5min,MINOR,CODE_SMELL
+S3242,HUMANO,SEQUENCE_COMPARISON,ESPECIALISTA,GOLD STANDARD,,49,Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'.,5min,MINOR,CODE_SMELL
+S1128,HUMANO,CLASSE_PRINCIPAL,ESPECIALISTA,GOLD STANDARD,,2,Remove this unnecessary 'using'.,1min,MINOR,CODE_SMELL
+S1118,HUMANO,CLASSE_PRINCIPAL,ESPECIALISTA,GOLD STANDARD,,15,Add a 'protected' constructor or the 'static' keyword to the class declaration.,10min,MAJOR,CODE_SMELL

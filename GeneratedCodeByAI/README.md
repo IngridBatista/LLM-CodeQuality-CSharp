@@ -11,6 +11,7 @@ A raiz do repositório reúne:
 - **84 projetos** (pastas), um para cada combinação de **modelo × questão × participante**
 - Um arquivo de solução `GeneratedCodeByAI.slnx`, que referencia todos os 84 projetos e permite abrir o conjunto completo de uma vez no Visual Studio
 - 104 arquivos `.cs` no total, onde a maioria dos projetos contém uma única classe de solução, mas alguns modelos geraram classes auxiliares adicionais (ex.: exceções customizadas)
+- Os resultados consolidados da análise estática (`results/sonarqube_issues.csv` e `results/sonarqube_issues_qualitative.csv`)
 
 ## Convenção de nomes
 
@@ -210,10 +211,33 @@ Além do dashboard web, os resultados de cada análise podem ser extraídos dire
 
 A análise estática, configurada conforme descrito acima, foi executada sobre os 84 projetos gerados por IA (`GeneratedCodeByAI`) e sobre o código de referência do especialista (`CodeMetrics`, identificado como **Humano** nas tabelas abaixo), com os dados extraídos via API/Postman conforme a seção anterior. Ao todo foram identificadas **128 ocorrências únicas** de violação das regras configuradas, distribuídas em 11 das 35 regras do Quality Profile (nenhuma ocorrência foi do tipo `BUG` ou `VULNERABILITY`; todas são `CODE_SMELL`).
 
-Duas planilhas compõem essa extração:
+A lista completa das 128 ocorrências está em [`results/sonarqube_issues.csv`](results/sonarqube_issues.csv), uma linha por ocorrência real detectada pelo SonarQube, com as colunas:
 
-- **Issues únicas** — uma linha por ocorrência real detectada pelo SonarQube (128 linhas), com regra, modelo, questão, senioridade, participante, arquivo, linha, mensagem, esforço de correção e severidade. É a base usada nas tabelas abaixo.
-- **Issues duplicatas** — a mesma base de ocorrências, mas cada uma pode aparecer mais de uma vez porque foi classificada em mais de uma dimensão qualitativa de análise do TCC (colunas `Categoria` e `Aplicação`, ex.: uma mesma ocorrência de S1118 pode estar marcada tanto em "Estrutura → Alta coesão" quanto em "Testabilidade → Interfaces bem definidas"). Não são duplicatas de extração, refletem o mesmo issue técnico visto sob mais de um critério de avaliação qualitativa; por isso o total desse arquivo (275 linhas) é maior que o das issues únicas.
+| Coluna | Descrição |
+|---|---|
+| `rule` | Código da regra violada (ex.: `S1118`) |
+| `llm` | Modelo avaliado, ou `Humano (referência)` para o código do especialista |
+| `question` | Exercício avaliado |
+| `seniority` | Senioridade do prompt do participante (ou `ESPECIALISTA` para o baseline) |
+| `participant` | Número do participante (1–7), ou `GOLD STANDARD` para o baseline |
+| `file` | Arquivo onde a ocorrência foi detectada |
+| `line` | Linha do arquivo |
+| `message` | Mensagem da regra retornada pelo SonarQube |
+| `effort` | Esforço de correção estimado |
+| `severity` | Severidade (`MINOR`, `MAJOR`, `CRITICAL`) |
+| `type` | Tipo de ocorrência (sempre `CODE_SMELL` neste dataset) |
+
+Uma segunda tabela, [`results/sonarqube_issues_qualitative.csv`](results/sonarqube_issues_qualitative.csv), traz a mesma base de ocorrências (275 linhas) anotada com uma camada de categorização qualitativa usada na análise do TCC: cada uma das 128 ocorrências técnicas aparece repetida sempre que foi classificada em mais de uma dimensão de análise (colunas `category`/`application`, ex.: um mesmo `S1118` marcado tanto em "Estrutura → Responsabilidades únicas e claras" quanto em "Testabilidade → Interfaces bem definidas"). Não são duplicatas de extração, refletem o mesmo issue técnico visto sob mais de um critério de avaliação qualitativa. Esse arquivo tem as mesmas colunas de `sonarqube_issues.csv`, mais:
+
+| Coluna | Descrição |
+|---|---|
+| `category` | Dimensão de qualidade sob a qual a ocorrência foi analisada (ex.: `Estrutura`, `Legibilidade`) |
+| `application` | Critério específico dentro da categoria (ex.: `Responsabilidades únicas e claras`) |
+| `rule_description` | Descrição da regra em inglês, conforme o SonarQube |
+| `status` | Status da ocorrência no SonarQube (ex.: `OPEN`) |
+| `component` | Identificador completo do componente analisado no SonarQube |
+
+> Para contagens agregadas (ocorrências por modelo, por severidade, por regra), use `sonarqube_issues.csv` (128 linhas, uma por ocorrência técnica real). Some `sonarqube_issues_qualitative.csv` apenas ao analisar por categoria/critério qualitativo, somar suas 275 linhas como se fossem ocorrências distintas infla a contagem.
 
 ### Ocorrências por modelo
 
@@ -253,141 +277,6 @@ O código de referência do especialista apresentou significativamente menos vio
 | **Total** | | **21** | **23** | **36** | **41** | **7** | **128** |
 
 As regras `S1118` (classe utilitária com construtor público) e `S3242` (parâmetros de método deveriam usar tipos base) concentram a maior parte das ocorrências, presentes em todos os cinco conjuntos de código (incluindo o do especialista). Já `S1128` (using desnecessário) aparece de forma bem concentrada no Gemini (11 das 15 ocorrências), e `S134`/`S1541`/`S3776` (aninhamento excessivo, complexidade ciclomática e cognitiva) aparecem principalmente no DeepSeek, sinalizando uma tendência desse modelo a gerar métodos estruturalmente mais complexos.
-
-### Lista completa de ocorrências
-
-Tabela completa com as 128 ocorrências únicas, agrupadas por modelo (Humano incluído como baseline):
-
-| Regra | Modelo | Questão | Senioridade | Participante | Arquivo | Linha | Mensagem | Esforço | Severidade |
-|---|---|---|---|---|---|---|---|---|---|
-| S1118 | GPT | ArrayDifference | Sênior | Participant 1 | GptArrayDifferenceSeniorParticipant1.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | GPT | ArrayDifference | Sênior | Participant 2 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | GPT | ArrayDifference | Sênior | Participant 3 | GptArrayDifferenceSeniorParticipant3.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1128 | GPT | ArrayDifference | Sênior | Participant 4 | ArrayUtils.cs | 1 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | GPT | ArrayDifference | Sênior | Participant 5 | GptArrayDifferenceSeniorParticipant5.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | GPT | ArrayDifference | Pleno | Participant 6 | GptArrayDifferencePlenoParticipant6.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | GPT | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 171 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | GPT | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 40 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1541 | GPT | SequenceComparison | Sênior | Participant 3 | Program.cs | 12 | The Cyclomatic Complexity of this method is 17 which is greater than 10 authorized. | 10min | CRITICAL |
-| S3776 | GPT | SequenceComparison | Sênior | Participant 3 | Program.cs | 12 | Refactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed. | 6min | CRITICAL |
-| S1118 | GPT | SequenceComparison | Sênior | Participant 4 | Fraction.cs | 67 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | GPT | SequenceComparison | Sênior | Participant 4 | Fraction.cs | 177 | Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S1210 | GPT | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 8 | When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S125 | GPT | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 222 | Remove this commented out code. | 5min | MAJOR |
-| S1210 | GPT | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 7 | When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S1118 | GPT | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 71 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3776 | GPT | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 73 | Refactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed. | 6min | CRITICAL |
-| S1541 | GPT | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 73 | The Cyclomatic Complexity of this method is 17 which is greater than 10 authorized. | 10min | CRITICAL |
-| S138 | GPT | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 73 | This method 'Main' has 83 lines, which is greater than the 80 lines authorized. Split it into smaller methods. | 20min | MAJOR |
-| S1210 | GPT | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 8 | When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S3242 | GPT | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 197 | Consider using more general type 'System.Collections.Generic.IReadOnlyCollection<double>' instead of 'System.Collections.Generic.IReadOnlyList<double>'. | 5min | MINOR |
-| S1118 | Claude | ArrayDifference | Sênior | Participant 1 | ClaudeArrayDifferenceSeniorParticipant1.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Sênior | Participant 2 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Sênior | Participant 3 | ClaudeArrayDifferenceSeniorParticipant3.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Sênior | Participant 4 | ClaudeArrayDifferenceSeniorParticipant4.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Sênior | Participant 5 | ClaudeArrayDifferenceSeniorParticipant5.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Pleno | Participant 6 | ClaudeArrayDifferencePlenoParticipant6.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | ArrayDifference | Júnior | Participant 7 | ClaudeArrayDifferenceJuniorParticipant7.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 289 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Claude | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 40 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S134 | Claude | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 126 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 148 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 4 | Fraction.cs | 158 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S1118 | Claude | SequenceComparison | Sênior | Participant 4 | Fraction.cs | 174 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 116 | Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 116 | Consider using more general type 'System.Collections.Generic.ICollection<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 133 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Claude | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 145 | Consider using more general type 'System.Collections.Generic.IEnumerable<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S1118 | Claude | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 159 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S134 | Claude | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 126 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S1481 | Claude | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 167 | Remove the unused local variable 'medianValue'. | 5min | MINOR |
-| S1118 | Claude | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 201 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | Claude | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 191 | Consider using more general type 'System.Collections.Generic.IList<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S1118 | Claude | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 292 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | ArrayDifference | Sênior | Participant 1 | ArrayUtils.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | ArrayDifference | Sênior | Participant 2 | Program.cs | 7 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | ArrayDifference | Sênior | Participant 3 | ArrayOperations.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1128 | Gemini | ArrayDifference | Sênior | Participant 4 | ArrayOperations.cs | 1 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | Gemini | ArrayDifference | Sênior | Participant 4 | ArrayOperations.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1128 | Gemini | ArrayDifference | Sênior | Participant 5 | ArrayUtils.cs | 1 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Gemini | ArrayDifference | Sênior | Participant 5 | ArrayUtils.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | Gemini | ArrayDifference | Sênior | Participant 5 | ArrayUtils.cs | 7 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | ArrayDifference | Pleno | Participant 6 | ArrayUtils.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1128 | Gemini | ArrayDifference | Júnior | Participant 7 | ArrayDifference.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | Gemini | ArrayDifference | Júnior | Participant 7 | ArrayDifference.cs | 7 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | SequenceComparison | Sênior | Participant 1 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | Gemini | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 45 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1541 | Gemini | SequenceComparison | Sênior | Participant 3 | Program.cs | 13 | The Cyclomatic Complexity of this method is 16 which is greater than 10 authorized. | 10min | CRITICAL |
-| S3776 | Gemini | SequenceComparison | Sênior | Participant 3 | Program.cs | 13 | Refactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed. | 6min | CRITICAL |
-| S125 | Gemini | SequenceComparison | Sênior | Participant 3 | Program.cs | 136 | Remove this commented out code. | 5min | MAJOR |
-| S1128 | Gemini | SequenceComparison | Sênior | Participant 4 | Program.cs | 1 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Gemini | SequenceComparison | Sênior | Participant 4 | Program.cs | 2 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Gemini | SequenceComparison | Sênior | Participant 4 | Program.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S3242 | Gemini | SequenceComparison | Sênior | Participant 5 | CompareSequence.cs | 105 | Consider using more general type 'System.Collections.Generic.IEnumerable<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S3242 | Gemini | SequenceComparison | Sênior | Participant 5 | CompareSequence.cs | 105 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Gemini | SequenceComparison | Sênior | Participant 5 | CompareSequence.cs | 129 | Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Gemini | SequenceComparison | Sênior | Participant 5 | CompareSequence.cs | 150 | Consider using more general type 'System.Collections.Generic.IEnumerable<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S1118 | Gemini | SequenceComparison | Sênior | Participant 5 | Program.cs | 5 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1210 | Gemini | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 11 | When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S1118 | Gemini | SequenceComparison | Pleno | Participant 6 | Program.cs | 5 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | Gemini | SequenceComparison | Júnior | Participant 7 | CompareSequence.cs | 133 | Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | Gemini | SequenceComparison | Júnior | Participant 7 | CompareSequence.cs | 158 | Consider using more general type 'System.Collections.Generic.ICollection<GEMINI.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7.Fraction>' instead of 'System.Collections.Generic.List<GEMINI.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7.Fraction>'. | 5min | MINOR |
-| S1210 | Gemini | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 11 | When implementing IComparable<T> or IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S1118 | Gemini | SequenceComparison | Júnior | Participant 7 | Program.cs | 5 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S125 | Gemini | StringArrayEncoding | Sênior | Participant 1 | MatrixException.cs | 22 | Remove this commented out code. | 5min | MAJOR |
-| S1128 | Gemini | StringArrayEncoding | Sênior | Participant 2 | MatrixString.cs | 2 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Gemini | StringArrayEncoding | Sênior | Participant 5 | MatrixString.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Gemini | StringArrayEncoding | Pleno | Participant 6 | MatrixString.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S125 | Gemini | StringArrayEncoding | Pleno | Participant 6 | MatrixString.cs | 88 | Remove this commented out code. | 5min | MAJOR |
-| S1128 | Gemini | StringArrayEncoding | Júnior | Participant 7 | MatrixString.cs | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | DeepSeek | ArrayDifference | Sênior | Participant 1 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S100 | DeepSeek | ArrayDifference | Sênior | Participant 1 | Program.cs | 25 | Rename method 'DiferencaEntreArraysSemLINQ' to match pascal case naming rules, consider using 'DiferencaEntreArraysSemLinq'. | 5min | MINOR |
-| S1118 | DeepSeek | ArrayDifference | Sênior | Participant 2 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | ArrayDifference | Sênior | Participant 3 | DeepseekArrayDifferenceSeniorParticipant3.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | ArrayDifference | Sênior | Participant 4 | DeepseekArrayDifferenceSeniorParticipant4.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | ArrayDifference | Sênior | Participant 5 | DeepseekArrayDifferenceSeniorParticipant5.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | ArrayDifference | Pleno | Participant 6 | Program.cs | 6 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | ArrayDifference | Júnior | Participant 7 | ArrayOperations.cs | 69 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1541 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 53 | The Cyclomatic Complexity of this method is 12 which is greater than 10 authorized. | 10min | CRITICAL |
-| S3776 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 53 | Refactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed. | 6min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 74 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 98 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S1541 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 135 | The Cyclomatic Complexity of this method is 13 which is greater than 10 authorized. | 10min | CRITICAL |
-| S3776 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 135 | Refactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed. | 6min | CRITICAL |
-| S1118 | DeepSeek | SequenceComparison | Sênior | Participant 1 | Fracao.cs | 245 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 35 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3776 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 37 | Refactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed. | 6min | CRITICAL |
-| S138 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 37 | This method 'Main' has 84 lines, which is greater than the 80 lines authorized. Split it into smaller methods. | 20min | MAJOR |
-| S1541 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 37 | The Cyclomatic Complexity of this method is 14 which is greater than 10 authorized. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 51 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Sênior | Participant 2 | Fraction.cs | 84 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S1118 | DeepSeek | SequenceComparison | Sênior | Participant 4 | CompareSequence.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S134 | DeepSeek | SequenceComparison | Sênior | Participant 4 | CompareSequence.cs | 37 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S1118 | DeepSeek | SequenceComparison | Sênior | Participant 4 | Program.cs | 3 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 117 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 117 | Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S3242 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 134 | Consider using more general type 'System.Collections.Generic.IEnumerable<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S3242 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 142 | Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S3242 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 147 | Consider using more general type 'System.Collections.Generic.IEnumerable<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>' instead of 'System.Collections.Generic.List<DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5.Fraction>'. | 5min | MINOR |
-| S125 | DeepSeek | SequenceComparison | Sênior | Participant 5 | Fraction.cs | 166 | Remove this commented out code. | 5min | MAJOR |
-| S1118 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 61 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3776 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 63 | Refactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed. | 6min | CRITICAL |
-| S138 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 63 | This method 'Main' has 94 lines, which is greater than the 80 lines authorized. Split it into smaller methods. | 20min | MAJOR |
-| S1541 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 63 | The Cyclomatic Complexity of this method is 16 which is greater than 10 authorized. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 76 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 124 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S134 | DeepSeek | SequenceComparison | Pleno | Participant 6 | Fraction.cs | 162 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
-| S1210 | DeepSeek | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 10 | When implementing IComparable<T>, you should also override ==, !=, <, <=, >, and >=. | 15min | MINOR |
-| S1118 | DeepSeek | SequenceComparison | Júnior | Participant 7 | Fraction.cs | 301 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1118 | DeepSeek | StringArrayEncoding | Júnior | Participant 7 | MatrixException.cs | 120 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S1481 | DeepSeek | StringArrayEncoding | Júnior | Participant 7 | MatrixException.cs | 165 | Remove the unused local variable 'invalidMatrix'. | 5min | MINOR |
-| S1128 | Humano (referência) | Classe Principal | ESPECIALISTA | GOLD STANDARD |  | 2 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Humano (referência) | Classe Principal | ESPECIALISTA | GOLD STANDARD |  | 3 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1128 | Humano (referência) | Classe Principal | ESPECIALISTA | GOLD STANDARD |  | 4 | Remove this unnecessary 'using'. | 1min | MINOR |
-| S1118 | Humano (referência) | Classe Principal | ESPECIALISTA | GOLD STANDARD |  | 15 | Add a 'protected' constructor or the 'static' keyword to the class declaration. | 10min | MAJOR |
-| S3242 | Humano (referência) | SequenceComparison | ESPECIALISTA | GOLD STANDARD |  | 49 | Consider using more general type 'System.Collections.Generic.IEnumerable<Application.Sequence.Types.Fraction>' instead of 'System.Collections.Generic.List<Application.Sequence.Types.Fraction>'. | 5min | MINOR |
-| S3242 | Humano (referência) | SequenceComparison | ESPECIALISTA | GOLD STANDARD |  | 49 | Consider using more general type 'System.Collections.Generic.ICollection<double>' instead of 'System.Collections.Generic.List<double>'. | 5min | MINOR |
-| S134 | Humano (referência) | StringArrayEncoding | ESPECIALISTA | GOLD STANDARD |  | 71 | Refactor this code to not nest more than 3 control flow statements. | 10min | CRITICAL |
 
 ## Origem dos dados
 
