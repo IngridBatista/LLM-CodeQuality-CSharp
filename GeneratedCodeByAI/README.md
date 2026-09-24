@@ -59,7 +59,7 @@ Todos os projetos usam o mesmo `TargetFramework` (`net10.0`) e as mesmas configu
 O código aqui armazenado é a matéria-prima da fase de avaliação do estudo, que aplica:
 
 - **CodeBLEU** — similaridade estrutural/sintática entre cada solução gerada e a solução de referência (especialista), calculada pelo [CodeBleuPreprocessor](https://github.com/IngridBatista/CodeBleuPreprocessor)
-- **SonarQube** — análise estática de qualidade e code smells, executada diretamente sobre este repositório e, com a mesma configuração, sobre o código de referência do especialista ([code-metrics](https://github.com/reginaldomota/code-metrics)), para fins de comparação
+- **SonarQube** — análise estática de qualidade e code smells, executada diretamente sobre este repositório e, com a mesma configuração, sobre o código de referência do especialista, [ReferenceCode](https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/ReferenceCode), para fins de comparação
 
 ## Análise estática com SonarQube
 
@@ -170,7 +170,7 @@ Ao final da execução, os resultados ficam disponíveis no dashboard do projeto
 
 ## Análise comparativa com o código de referência (especialista)
 
-Para que os resultados do SonarQube sejam comparáveis, a mesma configuração descrita acima também é aplicada ao repositório [code-metrics](https://github.com/reginaldomota/code-metrics), que contém as soluções de referência escritas manualmente pelo especialista (sem uso de IA) para os três exercícios do estudo, diferença entre arrays (`ArrayDifference`), comparação de sequências (`SequenceComparison`) e manipulação de matrizes de strings (`StringArrayEncoding`). Isso gera um baseline de qualidade contra o qual o código dos quatro LLMs é comparado.
+Para que os resultados do SonarQube sejam comparáveis, a mesma configuração descrita acima também é aplicada ao repositório [ReferenceCode](https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/ReferenceCode), que contém as soluções de referência escritas manualmente pelo especialista (sem uso de IA) para os três exercícios do estudo, diferença entre arrays (`ArrayDifference`), comparação de sequências (`SequenceComparison`) e manipulação de matrizes de strings (`StringArrayEncoding`). Isso gera um baseline de qualidade contra o qual o código dos quatro LLMs é comparado.
 
 Diferente deste repositório, o `code-metrics` é um único projeto .NET console (`code-metrics.sln` / `code-metrics.csproj`, .NET 8.0) que reúne as três soluções em uma mesma base de código, então a análise cobre o projeto inteiro de uma só vez.
 
@@ -211,7 +211,7 @@ Além do dashboard web, os resultados de cada análise podem ser extraídos dire
 
 A análise estática, configurada conforme descrito acima, foi executada sobre os 84 projetos gerados por IA (`GeneratedCodeByAI`) e sobre o código de referência do especialista (`CodeMetrics`, identificado como **Humano** nas tabelas abaixo), com os dados extraídos via API/Postman conforme a seção anterior. Ao todo foram identificadas **128 ocorrências únicas** de violação das regras configuradas, distribuídas em 11 das 35 regras do Quality Profile (nenhuma ocorrência foi do tipo `BUG` ou `VULNERABILITY`; todas são `CODE_SMELL`).
 
-A lista completa das 128 ocorrências está em [`results/sonarqube_issues.csv`](results/sonarqube_issues.csv), uma linha por ocorrência real detectada pelo SonarQube, com as colunas:
+A lista completa das 128 ocorrências está em [`results/sonarqube_issues.csv`](Results/sonarqube_issues.csv), uma linha por ocorrência real detectada pelo SonarQube, com as colunas:
 
 | Coluna | Descrição |
 |---|---|
@@ -227,7 +227,7 @@ A lista completa das 128 ocorrências está em [`results/sonarqube_issues.csv`](
 | `severity` | Severidade (`MINOR`, `MAJOR`, `CRITICAL`) |
 | `type` | Tipo de ocorrência (sempre `CODE_SMELL` neste dataset) |
 
-Uma segunda tabela, [`results/sonarqube_issues_qualitative.csv`](results/sonarqube_issues_qualitative.csv), traz a mesma base de ocorrências (275 linhas) anotada com uma camada de categorização qualitativa usada na análise do TCC: cada uma das 128 ocorrências técnicas aparece repetida sempre que foi classificada em mais de uma dimensão de análise (colunas `category`/`application`, ex.: um mesmo `S1118` marcado tanto em "Estrutura → Responsabilidades únicas e claras" quanto em "Testabilidade → Interfaces bem definidas"). Não são duplicatas de extração, refletem o mesmo issue técnico visto sob mais de um critério de avaliação qualitativa. Esse arquivo tem as mesmas colunas de `sonarqube_issues.csv`, mais:
+Uma segunda tabela, [`results/sonarqube_issues_qualitative.csv`](Results/sonarqube_issues_qualitative.csv), traz a mesma base de ocorrências (275 linhas) anotada com uma camada de categorização qualitativa usada na análise do TCC: cada uma das 128 ocorrências técnicas aparece repetida sempre que foi classificada em mais de uma dimensão de análise (colunas `category`/`application`, ex.: um mesmo `S1118` marcado tanto em "Estrutura → Responsabilidades únicas e claras" quanto em "Testabilidade → Interfaces bem definidas"). Não são duplicatas de extração, refletem o mesmo issue técnico visto sob mais de um critério de avaliação qualitativa. Esse arquivo tem as mesmas colunas de `sonarqube_issues.csv`, mais:
 
 | Coluna | Descrição |
 |---|---|
