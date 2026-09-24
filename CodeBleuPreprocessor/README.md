@@ -1,6 +1,6 @@
 # CodeBleuPreprocessor
 
-API em **ASP.NET Core (.NET 10)** que prepara arquivos de código C# para o cálculo de **CodeBLEU**, normalizando-os em um único dataset de texto plano, mais os datasets já normalizados e o script Python que executa o cálculo final. É a etapa de pré-processamento e cálculo de métricas de um Trabalho de Conclusão de Curso (TCC) que avalia a qualidade do código C# gerado por LLMs, consumindo as soluções produzidas pelo [AIConnection](https://github.com/IngridBatista/AIConnection) e armazenadas no [GeneratedCodeByAI](https://github.com/IngridBatista/GeneratedCodeByAI).
+API em **ASP.NET Core (.NET 10)** que prepara arquivos de código C# para o cálculo de **CodeBLEU**, normalizando-os em um único dataset de texto plano e o script Python que executa o cálculo final. É a etapa de pré-processamento e cálculo de métricas de um Trabalho de Conclusão de Curso (TCC) que avalia a qualidade do código C# gerado por LLMs, consumindo as soluções produzidas pelo [AIConnection](https://github.com/IngridBatista/AIConnection) e armazenadas no [GeneratedCodeByAI](https://github.com/IngridBatista/GeneratedCodeByAI).
 
 ## O que o repositório contém
 
@@ -81,7 +81,7 @@ NormalizedReferenceCode/
 ```
 
 - `NormalizedGeneratedCode/{MODELO}/{QUESTAO}/Participant_{N}/` — código normalizado gerado por cada LLM, para cada questão e participante (saída do [GeneratedCodeByAI](https://github.com/IngridBatista/GeneratedCodeByAI) já processada por esta API).
-- `NormalizedReferenceCode/{QUESTAO}/` — código normalizado da solução de referência (especialista) de cada uma das 3 questões, usado como base de comparação para todos os modelos e participante ([GeneratedCodeBySpecialist](https://github.com/reginaldomota/code-metrics)).
+- `NormalizedReferenceCode/{QUESTAO}/` — código normalizado da solução de referência (especialista) de cada uma das 3 questões, usado como base de comparação para todos os modelos e participante ([ReferenceCode](https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/ReferenceCode)).
 
 > `CLAUDE/SequenceComparison` e `DEEPSEEK/SequenceComparison` não possuem a pasta `Participant_3`: a geração de código para esse par não produziu uma solução compilável, por isso não há CodeBLEU calculado para essas duas combinações (ver `results/codebleu_results.csv`, onde as métricas ficam em branco para essas duas linhas).
 
