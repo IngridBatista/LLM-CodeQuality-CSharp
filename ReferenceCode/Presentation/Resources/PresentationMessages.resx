@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <data name="MainMenuTitle" xml:space="preserve">
+    <value>
+=================================================
+Menu Principal
+=================================================</value>
+  </data>
+  <data name="MenuOption1" xml:space="preserve">
+    <value>1. Calcular diferença entre dois arrays</value>
+  </data>
+  <data name="MenuOption2" xml:space="preserve">
+    <value>2. Comparar sequências (A e B com frações)</value>
+  </data>
+  <data name="MenuOption3" xml:space="preserve">
+    <value>3. Operações com Matriz de Strings</value>
+  </data>
+  <data name="MenuOption4" xml:space="preserve">
+    <value>4. Sair</value>
+  </data>
+  <data name="ChooseOption" xml:space="preserve">
+    <value>Escolha uma opção: </value>
+  </data>
+  <data name="InvalidOption" xml:space="preserve">
+    <value>Opção inválida!</value>
+  </data>
+  <data name="Goodbye" xml:space="preserve">
+    <value>Até logo!</value>
+  </data>
+</root>
