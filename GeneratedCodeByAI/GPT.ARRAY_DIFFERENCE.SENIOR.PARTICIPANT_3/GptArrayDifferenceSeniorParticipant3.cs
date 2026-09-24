@@ -1,0 +1,19 @@
+namespace GPT.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_3
+{
+    public class GptArrayDifferenceSeniorParticipant3
+    {
+        public static int[] Difference(int[] a, int[] b)
+        {
+            var conjuntoB = new HashSet<int>(b);
+            var resultado = new List<int>();
+
+            foreach (var valor in a)
+            {
+                if (!conjuntoB.Contains(valor))
+                    resultado.Add(valor);
+            }
+
+            return resultado.ToArray();
+        }
+    }
+}
