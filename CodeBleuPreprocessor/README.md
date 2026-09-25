@@ -144,7 +144,7 @@ Foi assim que `results/codebleu_results.csv` foi construído: 84 execuções man
 
 ## Resultados do CodeBLEU
 
-Os resultados completos das 84 execuções (uma por combinação de modelo × questão × participante) estão em [`results/codebleu_results.csv`](results/codebleu_results.csv), com uma linha por combinação e as colunas:
+Os resultados completos das 84 execuções (uma por combinação de modelo × questão × participante) estão em [`results/codebleu_results.csv`](Results/codebleu_results.csv), com uma linha por combinação e as colunas:
 
 | Coluna | Descrição |
 |---|---|
