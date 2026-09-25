@@ -38,14 +38,14 @@ flowchart LR
 
 | O que você procura | Onde está |
 |---|---|
-| Prompts utilizados por participante/questão | [`DatasetPrompts`](./https://github.com/IngridBatista/LLM-CodeQuality-CSharp/blob/main/AIConnection/Dataset/prompts.postman_collection.json) |
+| Prompts utilizados por participante/questão | [`DatasetPrompts`](./AIConnection/dataset/prompts.postman_collection.json) |
 | Quantidade de execuções por modelo/questão/participante | [`AIConnection/README.md`](./AIConnection#quantidade-de-execuções-por-modelo-questão-e-participante) |
 | Código gerado por cada LLM | [`GeneratedCodeByAI/`](./GeneratedCodeByAI) |
-| Configuração do SonarQube | [`ConfiguracaoSonarQUBE`](./https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/GeneratedCodeByAI#1-instala%C3%A7%C3%A3o-do-sonarqube-community-via-docker) |
-| Resultados do SonarQube (IA vs. especialista) | [`ResultadosSonarQUBE`](./https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/GeneratedCodeByAI#resultados-do-sonarqube) |
+| Configuração do SonarQube | [`GeneratedCodeByAI/README.md`](./GeneratedCodeByAI#1-instala%C3%A7%C3%A3o-do-sonarqube-community-via-docker) |
+| Resultados do SonarQube (IA vs. especialista) | [`GeneratedCodeByAI/README.md`](./GeneratedCodeByAI#resultados-do-sonarqube) |
 | Código de referência do especialista | [`ReferenceCode/`](./ReferenceCode) |
-| Datasets normalizados | [`DatasetsNormalizados`](./https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/CodeBleuPreprocessor#datasets-normalizados) |
-| Resultados do CodeBLEU | [`CodeBleuPreprocessor/README.md`](./https://github.com/IngridBatista/LLM-CodeQuality-CSharp/tree/main/CodeBleuPreprocessor#Resultados-do-codebleu) |
+| Datasets normalizados | [`CodeBleuPreprocessor/README.md`](./CodeBleuPreprocessor#datasets-normalizados) |
+| Resultados do CodeBLEU | [`CodeBleuPreprocessor/README.md`](./CodeBleuPreprocessor#Resultados-do-codebleu) |
 
 ## Stack técnica
 
