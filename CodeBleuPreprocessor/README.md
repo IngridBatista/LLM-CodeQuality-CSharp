@@ -91,7 +91,7 @@ O script usa a biblioteca [`codebleu`](https://pypi.org/project/codebleu/) para 
 
 ### Pré-requisitos
 
-- Python 3.8 ou superior
+- Python 3.10 a 3.12 (o `codebleu` 0.7+ não suporta mais o Python 3.8)
 - `pip`
 
 ### Passo a passo de instalação
@@ -113,6 +113,17 @@ O script usa a biblioteca [`codebleu`](https://pypi.org/project/codebleu/) para 
    ```bash
    pip install codebleu
    ```
+4. Instale o parser de **C# do tree-sitter**. Desde o `codebleu` 0.7.0, os parsers de cada linguagem não vêm mais embutidos e precisam ser instalados à parte; como o script usa `lang="c_sharp"`, este passo é obrigatório:
+   ```bash
+   pip install tree-sitter-c-sharp
+   ```
+   > Alternativa: `pip install codebleu[all]` instala os parsers de todas as linguagens suportadas de uma vez, mas para este projeto só o de C# é necessário.
+5. (Opcional) Confirme que o parser foi instalado corretamente:
+   ```bash
+   pip list | grep -i tree-sitter        # Linux/macOS
+   pip list | findstr /i tree-sitter     # Windows
+   ```
+   A saída deve listar `tree-sitter` e `tree-sitter-c-sharp`.
 
 ### Passo a passo de execução
 
